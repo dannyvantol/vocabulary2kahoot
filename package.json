@@ -20,7 +20,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "tailwind:build": "cross-env NODE_ENV=development postcss tailwind.css -o src/assets/css/tailwind.css",
+    "tailwind:prod": "cross-env NODE_ENV=production postcss tailwind.css -o src/assets/css/tailwind.css"
   },
   "eslintConfig": {
     "extends": [
@@ -39,5 +41,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "autoprefixer": "9.8.6",
+    "cross-env": "^7.0.2",
+    "cssnano": "^4.1.10",
+    "postcss-cli": "^8.2.0",
+    "tailwindcss": "^1.9.6"
   }
 }

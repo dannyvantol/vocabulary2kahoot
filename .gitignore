@@ -24,3 +24,6 @@ yarn-error.log*
 
 # intellij
 .idea/
+
+# tailwind
+src/assets/css/tailwind.css
