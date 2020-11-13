@@ -50,7 +50,7 @@ class VocabularyTable extends React.PureComponent<Props>
 
     public renderTableBody(data: string[][]): React.ReactNode[]
     {
-        const scope = this;
+        const context: VocabularyTable = this;
         let nodes: React.ReactNode[] = [];
 
         data.forEach(function (element: string[], index: number) {
@@ -60,7 +60,7 @@ class VocabularyTable extends React.PureComponent<Props>
                     <td className={"w-5/12 text-sm"}>{element[0]}</td>
                     <td className={"w-5/12 text-sm"}>{element[1]}</td>
                     <td className={"w-1/12 text-sm text-right pr-1"}>
-                        <button className={"focus:outline-none"} onClick={scope.onClick.bind(scope, index)}>
+                        <button className={"focus:outline-none"} onClick={context.onClick.bind(context, index)}>
                             <span className={"text-red-300"}>&#10006;</span>
                         </button>
                     </td>

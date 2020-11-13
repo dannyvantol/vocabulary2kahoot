@@ -1,7 +1,12 @@
 import React, {ReactNode} from 'react';
+import XLSX from 'xlsx';
+
 import VocabularyInput from "./VocabularyInput";
 import VocabularyTable from './VocabularyTable';
 import VocabularyTools from './VocabularyTools';
+
+import {KahootService} from '../../services/KahootService';
+import {KahootQuiz} from '../../models/KahootQuiz';
 
 interface State
 {
@@ -67,9 +72,25 @@ class VocabularyScreen extends React.Component<{}, State>
 
     public onClickDownloadVocabularyTools(): void
     {
+        if (this.dataHasFourOrMoreEntries()) {
+            const kahootQuiz: KahootQuiz = KahootService.createQuiz(this.state.data, this.state.timeLimit);
+            const xlsx: XLSX.WorkBook = KahootService.exportToXLSX(kahootQuiz);
 
+            XLSX.writeFile(xlsx, 'Kahoot2Vocabulary.xlsx');
+        } else {
+            alert('At least four terms are required to create a Kahoot quiz');
+        }
     }
 
+
+    /*----------------------------------------
+    |   Validate methods
+    *----------------------------------------*/
+
+    public dataHasFourOrMoreEntries(): boolean
+    {
+        return this.state.data.length >= 4;
+    }
 
     /*----------------------------------------
     |   Render methods
@@ -97,7 +118,8 @@ class VocabularyScreen extends React.Component<{}, State>
                     </div>
 
                     <div className={"mt-3"}>
-                        <VocabularyTable data={this.state.data} onRemoveRow={this.onRemoveRowVocabularyTable.bind(this)}/>
+                        <VocabularyTable data={this.state.data}
+                                         onRemoveRow={this.onRemoveRowVocabularyTable.bind(this)}/>
                     </div>
                 </div>
             </React.Fragment>
