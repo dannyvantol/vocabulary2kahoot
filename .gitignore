@@ -27,3 +27,6 @@ yarn-error.log*
 
 # tailwind
 src/assets/css/tailwind.css
+
+# coverage
+coverage/
