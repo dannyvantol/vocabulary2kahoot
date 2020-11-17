@@ -40,7 +40,6 @@ describe('Test Kahoot exportToXLSX method', function() {
             ['Question', 'Answer 1', 'Answer 2', 'Answer 3', 'Answer 4', 'Time limit', 'Correct answer'],
             ['question', 'answer 1', 'answer 2', 'answer 3', 'answer 4', '10', '2']
         ];
-        let rowData: string[][];
 
         const workbook: XLSX.WorkBook = Kahoot.exportToXLSX(kahootQuiz);
         const worksheet: XLSX.WorkSheet = workbook.Sheets[kahootSheetName];
