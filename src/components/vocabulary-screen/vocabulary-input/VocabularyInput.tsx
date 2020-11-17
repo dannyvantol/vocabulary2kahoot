@@ -1,7 +1,7 @@
 import React from 'react';
-import {Keyboard} from "../../helpers/Keyboard";
-import {OnInput, OnKeyPress} from "../../interfaces/Events";
-import Button from '../ui/Button';
+import {Keyboard} from "../../../static/Keyboard";
+import {OnInput, OnKeyPress} from "../../../interfaces/Events";
+import Button from '../../ui/button/Button';
 
 interface Props
 {

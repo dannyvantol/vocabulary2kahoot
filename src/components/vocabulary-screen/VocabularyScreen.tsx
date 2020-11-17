@@ -1,9 +1,9 @@
 import React, {ReactNode} from 'react';
 import XLSX from 'xlsx';
 
-import VocabularyInput from "./VocabularyInput";
-import VocabularyTable from './VocabularyTable';
-import VocabularyTools from './VocabularyTools';
+import VocabularyInput from "./vocabulary-input/VocabularyInput";
+import VocabularyTable from './vocbulary-table/VocabularyTable';
+import VocabularyTools from './vocabulary-tools/VocabularyTools';
 
 import {KahootService} from '../../services/KahootService';
 import {KahootQuiz} from '../../models/KahootQuiz';

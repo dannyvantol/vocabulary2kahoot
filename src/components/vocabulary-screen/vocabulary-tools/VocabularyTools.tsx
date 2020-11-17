@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '../ui/Button';
+import Button from '../../ui/button/Button';
 
 interface Props
 {
@@ -37,7 +37,7 @@ class VocabularyTools extends React.PureComponent<Props>
             <div className={"flex justify-between"}>
                 <div className={"flex items-center"}>
                     <select
-                        className={"w-12 h-8"} value={20}
+                        className={"w-12 h-8"} value={this.props.timeLimit}
                         onChange={this.onChange.bind(this)}>
                         <option value={"5"}>5</option>
                         <option value={"10"}>10</option>

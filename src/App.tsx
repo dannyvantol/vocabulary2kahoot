@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import VocabularyScreen from "./components/vocabulary/VocabularyScreen";
+import VocabularyScreen from "./components/vocabulary-screen/VocabularyScreen";
 
 class App extends React.Component
 {
