@@ -52,7 +52,7 @@ export class KahootService
 
         buffer.push(addToBuffer);
 
-        return new KahootQuestion(question, answers, answerPosition);
+        return new KahootQuestion(question, answers, answerPosition + 1);
     }
 
     private static pickRandomAnswers(
