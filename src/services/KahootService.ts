@@ -6,7 +6,7 @@ import {Kahoot} from '../helpers/Kahoot';
 
 export class KahootService
 {
-    public static createQuiz(data: string[][], timeLimit: number): KahootQuiz
+    public static createQuiz(data: string[][], timeLimit: number, questionsPerQuiz: number): KahootQuiz[]
     {
         let kahootQuiz: KahootQuiz = new KahootQuiz(timeLimit);
         let availableAnswers: string[] = data.map(function (element: string[]): string {
@@ -22,7 +22,7 @@ export class KahootService
             availableAnswers = [...availableAnswers, ...toRecover];
         });
 
-        return kahootQuiz;
+        return KahootService.segmentizeQuiz(kahootQuiz, questionsPerQuiz);
     }
 
     public static exportToXLSX(kahootQuiz: KahootQuiz): XLSX.WorkBook
@@ -67,7 +67,7 @@ export class KahootService
         while ((answers.length === 4 && position < 3) || answers.length < 4) {
             if (position === answerPosition) position++;
 
-            let randomIndex = Random.number(0, availableAnswers.length) - 1;
+            let randomIndex = Random.number(0, availableAnswers.length - 1);
             let randomAnswer: string = availableAnswers[randomIndex];
 
             answers[position] = randomAnswer;
@@ -85,5 +85,27 @@ export class KahootService
         if (buffer.length >= bufferSize) toRecover = buffer.splice(0, 1)[0];
 
         return toRecover;
+    }
+
+    private static segmentizeQuiz(kahootQuiz: KahootQuiz, questionsPerQuiz: number): KahootQuiz[] {
+        let kahootQuizzes: KahootQuiz[] = [];
+
+        const kahootQuestions: KahootQuestion[] = kahootQuiz.questions;
+        const kahootQuizSize: number = (questionsPerQuiz > kahootQuestions.length || questionsPerQuiz === 0) ? kahootQuestions.length : questionsPerQuiz;
+
+        while (kahootQuestions.length > 0) {
+            let currentQuizSize: number = (kahootQuizSize < kahootQuestions.length) ? kahootQuizSize : kahootQuestions.length;
+            let currentKahootQuiz: KahootQuiz = new KahootQuiz(kahootQuiz.timeLimit);
+
+            let currentKahootQuestions: KahootQuestion[] = kahootQuestions.splice(0, currentQuizSize);
+
+            currentKahootQuestions.forEach(function (kahootQuestion: KahootQuestion) {
+                currentKahootQuiz.push(kahootQuestion)
+            });
+
+            kahootQuizzes.push(currentKahootQuiz);
+        }
+
+        return kahootQuizzes;
     }
 }

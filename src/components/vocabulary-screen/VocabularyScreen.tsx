@@ -7,22 +7,28 @@ import VocabularyTools from './vocabulary-tools/VocabularyTools';
 
 import {KahootService} from '../../services/KahootService';
 import {KahootQuiz} from '../../models/KahootQuiz';
+import VocabularyDownloadPopup from "./vocabulary-download-popup/VocabularyDownloadPopup";
 
-interface State
-{
+interface State {
     data: string[][];
     timeLimit: number;
+    questionPerQuiz: number;
+    documentName: string;
+    downloadables: XLSX.WorkBook[];
+    downloadPopupHidden: boolean;
 }
 
-class VocabularyScreen extends React.Component<{}, State>
-{
-    constructor(props: {})
-    {
+class VocabularyScreen extends React.Component<{}, State> {
+    constructor(props: {}) {
         super(props);
 
         this.state = {
             data: [],
-            timeLimit: 20
+            timeLimit: 20,
+            questionPerQuiz: 0,
+            documentName: '',
+            downloadables: [],
+            downloadPopupHidden: true
         }
     }
 
@@ -31,16 +37,14 @@ class VocabularyScreen extends React.Component<{}, State>
     |   Component event methods
     *----------------------------------------*/
 
-    public onSubmitVocabularyInput(term: string, answer: string): void
-    {
+    public onSubmitVocabularyInput(term: string, answer: string): void {
         let newState = [...this.state.data];
         newState.push([term, answer]);
 
         this.setState({data: newState});
     }
 
-    public onRemoveRowVocabularyTable(index: number): void
-    {
+    public onRemoveRowVocabularyTable(index: number): void {
         let newState: string[][] = [...this.state.data];
 
         if (newState[index] !== undefined) {
@@ -49,18 +53,23 @@ class VocabularyScreen extends React.Component<{}, State>
         }
     }
 
-    public onChangeTimeLimitVocabularyTools(value: number): void
-    {
+    public onChangeTimeLimitVocabularyTools(value: number): void {
         this.setState({timeLimit: value});
     }
 
-    public onClickClearVocabularyTools(): void
-    {
+    public onInputQuestionPerQuizVocabularyTools(value: number): void {
+        this.setState({questionPerQuiz: value});
+    }
+
+    public onInputDocumentNameVocabularyTools(value: string): void {
+        this.setState({documentName: value});
+    }
+
+    public onClickClearVocabularyTools(): void {
         this.setState({data: []})
     }
 
-    public onClickSwapVocabubaryTools(): void
-    {
+    public onClickSwapVocabubaryTools(): void {
         let newState: string[][] = [];
 
         this.state.data.forEach(function (element: string[]) {
@@ -70,16 +79,30 @@ class VocabularyScreen extends React.Component<{}, State>
         this.setState({data: newState});
     }
 
-    public onClickDownloadVocabularyTools(): void
-    {
+    public onClickDownloadVocabularyTools(): void {
         if (this.dataHasFourOrMoreEntries()) {
-            const kahootQuiz: KahootQuiz = KahootService.createQuiz(this.state.data, this.state.timeLimit);
-            const xlsx: XLSX.WorkBook = KahootService.exportToXLSX(kahootQuiz);
+            const kahootQuizSize = (this.state.questionPerQuiz <= 0) ? this.state.data.length : this.state.questionPerQuiz;
+            const kahootQuizzes: KahootQuiz[] = KahootService.createQuiz(this.state.data, this.state.timeLimit, kahootQuizSize);
 
-            XLSX.writeFile(xlsx, 'Kahoot2Vocabulary.xlsx');
+            let downloadables: XLSX.WorkBook[] = [];
+
+            kahootQuizzes.forEach(function (kahootQuiz: KahootQuiz) {
+                downloadables.push(
+                    KahootService.exportToXLSX(kahootQuiz)
+                );
+            });
+
+            this.setState({
+                downloadables: downloadables,
+                downloadPopupHidden: false
+            });
         } else {
             alert('At least four terms are required to create a Kahoot quiz');
         }
+    }
+
+    public onClickCloseVocabularyDownloadPopup(): void {
+        this.setState({downloadPopupHidden: true});
     }
 
 
@@ -87,8 +110,7 @@ class VocabularyScreen extends React.Component<{}, State>
     |   Validate methods
     *----------------------------------------*/
 
-    public dataHasFourOrMoreEntries(): boolean
-    {
+    public dataHasFourOrMoreEntries(): boolean {
         return this.state.data.length >= 4;
     }
 
@@ -96,21 +118,22 @@ class VocabularyScreen extends React.Component<{}, State>
     |   Render methods
     *----------------------------------------*/
 
-    public render(): ReactNode
-    {
+    public render(): ReactNode {
         return (
             <React.Fragment>
                 <header className={"mt-10"}>
                     <h1 className={"text-2xl text-white text-center font-bold"}>Vocabulary2Kahoot</h1>
                 </header>
 
-                <div className={"min-w-lg max-w-xl mx-auto mt-3"}>
+                <div className={"max-w-xl mx-auto mt-3"}>
                     <VocabularyInput onSubmit={this.onSubmitVocabularyInput.bind(this)}/>
 
                     <div className={"mt-3"}>
                         <VocabularyTools
                             timeLimit={this.state.timeLimit}
                             onChangeTimeLimit={this.onChangeTimeLimitVocabularyTools.bind(this)}
+                            onInputQuestionsPerQuiz={this.onInputQuestionPerQuizVocabularyTools.bind(this)}
+                            onInputDocumentName={this.onInputDocumentNameVocabularyTools.bind(this)}
                             onClickClear={this.onClickClearVocabularyTools.bind(this)}
                             onClickSwap={this.onClickSwapVocabubaryTools.bind(this)}
                             onClickDownload={this.onClickDownloadVocabularyTools.bind(this)}
@@ -118,10 +141,19 @@ class VocabularyScreen extends React.Component<{}, State>
                     </div>
 
                     <div className={"mt-3"}>
-                        <VocabularyTable data={this.state.data}
-                                         onRemoveRow={this.onRemoveRowVocabularyTable.bind(this)}/>
+                        <VocabularyTable
+                            data={this.state.data}
+                            onRemoveRow={this.onRemoveRowVocabularyTable.bind(this)}
+                        />
                     </div>
                 </div>
+
+                <VocabularyDownloadPopup
+                    hidden={this.state.downloadPopupHidden}
+                    documentName={this.state.documentName}
+                    downloadables={this.state.downloadables}
+                    onClose={this.onClickCloseVocabularyDownloadPopup.bind(this)}
+                />
             </React.Fragment>
         );
     }
