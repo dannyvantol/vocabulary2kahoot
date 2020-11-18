@@ -28,10 +28,10 @@ class VocabularyDownloadPopup extends React.PureComponent<Props> {
     *----------------------------------------*/
 
     private getDocumentName(index: number): string {
-        const documentName = (this.props.documentName.trim().length > 0 ? this.props.documentName : "Vocabulary2Kahoot") + ".xlsx";
+        const documentName = (this.props.documentName.trim().length > 0 ? this.props.documentName : "Vocabulary2Kahoot");
 
-        if (this.props.downloadables.length === 1) return documentName;
-        else return documentName + " " + (index + 1).toString();
+        if (this.props.downloadables.length === 1) return documentName + ".xlsx";
+        else return documentName + " " + (index + 1).toString() + ".xlsx";
     }
 
 
