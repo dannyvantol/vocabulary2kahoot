@@ -1,0 +1,7 @@
+.download-popup-hidden {
+    display: none;
+}
+
+.download-popup-overlay {
+    background-color: rgba(0, 0, 0, .4);
+}

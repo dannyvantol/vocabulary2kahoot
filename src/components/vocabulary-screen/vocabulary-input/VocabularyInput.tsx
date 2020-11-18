@@ -68,6 +68,8 @@ class VocabularyInput extends React.Component<Props, State>
 
     public onKeyPressAnswer(event: React.KeyboardEvent<HTMLInputElement>): void
     {
+        console.log(event.key === Keyboard.TAB);
+        if (event.key === Keyboard.TAB) alert('Hello World');
         if (event.key === Keyboard.ENTER || event.key === Keyboard.TAB) this.onSubmit();
     }
 
@@ -158,7 +160,7 @@ class VocabularyInput extends React.Component<Props, State>
                    placeholder={placeholder}
                    maxLength={maxLength}
                    onInput={onInput.bind(this)} ref={ref}
-                   onKeyPress={onKeyPress.bind(this)}
+                   onKeyDown={onKeyPress.bind(this)}
                    className={"flex-grow text-white bg-transparent p-1 box-border focus:outline-none"}
             />
         );
