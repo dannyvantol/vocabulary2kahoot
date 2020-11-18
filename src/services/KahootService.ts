@@ -67,7 +67,7 @@ export class KahootService
         while ((answers.length === 4 && position < 3) || answers.length < 4) {
             if (position === answerPosition) position++;
 
-            let randomIndex = Random.number(0, availableAnswers.length) - 1;
+            let randomIndex = Random.number(0, availableAnswers.length - 1);
             let randomAnswer: string = availableAnswers[randomIndex];
 
             answers[position] = randomAnswer;
