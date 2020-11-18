@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "https://dannyvantol.github.io/vocabulary2kahoot/static/css/main.329e4320.chunk.css",
-    "main.js": "https://dannyvantol.github.io/vocabulary2kahoot/static/js/main.2c046f26.chunk.js",
-    "main.js.map": "https://dannyvantol.github.io/vocabulary2kahoot/static/js/main.2c046f26.chunk.js.map",
-    "runtime-main.js": "https://dannyvantol.github.io/vocabulary2kahoot/static/js/runtime-main.e58eab5c.js",
-    "runtime-main.js.map": "https://dannyvantol.github.io/vocabulary2kahoot/static/js/runtime-main.e58eab5c.js.map",
-    "static/js/2.527d8236.chunk.js": "https://dannyvantol.github.io/vocabulary2kahoot/static/js/2.527d8236.chunk.js",
-    "static/js/2.527d8236.chunk.js.map": "https://dannyvantol.github.io/vocabulary2kahoot/static/js/2.527d8236.chunk.js.map",
-    "static/js/3.ecf24598.chunk.js": "https://dannyvantol.github.io/vocabulary2kahoot/static/js/3.ecf24598.chunk.js",
-    "static/js/3.ecf24598.chunk.js.map": "https://dannyvantol.github.io/vocabulary2kahoot/static/js/3.ecf24598.chunk.js.map",
+    "main.css": "https://dannyvantol.github.io/vocabulary2kahoot/static/css/main.33b61ed0.chunk.css",
+    "main.js": "https://dannyvantol.github.io/vocabulary2kahoot/static/js/main.d4a58d9c.chunk.js",
+    "main.js.map": "https://dannyvantol.github.io/vocabulary2kahoot/static/js/main.d4a58d9c.chunk.js.map",
+    "runtime-main.js": "https://dannyvantol.github.io/vocabulary2kahoot/static/js/runtime-main.6aad9c8c.js",
+    "runtime-main.js.map": "https://dannyvantol.github.io/vocabulary2kahoot/static/js/runtime-main.6aad9c8c.js.map",
+    "static/js/2.6495106e.chunk.js": "https://dannyvantol.github.io/vocabulary2kahoot/static/js/2.6495106e.chunk.js",
+    "static/js/2.6495106e.chunk.js.map": "https://dannyvantol.github.io/vocabulary2kahoot/static/js/2.6495106e.chunk.js.map",
+    "static/js/3.0bb51db5.chunk.js": "https://dannyvantol.github.io/vocabulary2kahoot/static/js/3.0bb51db5.chunk.js",
+    "static/js/3.0bb51db5.chunk.js.map": "https://dannyvantol.github.io/vocabulary2kahoot/static/js/3.0bb51db5.chunk.js.map",
     "index.html": "https://dannyvantol.github.io/vocabulary2kahoot/index.html",
-    "static/css/main.329e4320.chunk.css.map": "https://dannyvantol.github.io/vocabulary2kahoot/static/css/main.329e4320.chunk.css.map",
-    "static/js/2.527d8236.chunk.js.LICENSE.txt": "https://dannyvantol.github.io/vocabulary2kahoot/static/js/2.527d8236.chunk.js.LICENSE.txt"
+    "static/css/main.33b61ed0.chunk.css.map": "https://dannyvantol.github.io/vocabulary2kahoot/static/css/main.33b61ed0.chunk.css.map",
+    "static/js/2.6495106e.chunk.js.LICENSE.txt": "https://dannyvantol.github.io/vocabulary2kahoot/static/js/2.6495106e.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.e58eab5c.js",
-    "static/js/2.527d8236.chunk.js",
-    "static/css/main.329e4320.chunk.css",
-    "static/js/main.2c046f26.chunk.js"
+    "static/js/runtime-main.6aad9c8c.js",
+    "static/js/2.6495106e.chunk.js",
+    "static/css/main.33b61ed0.chunk.css",
+    "static/js/main.d4a58d9c.chunk.js"
   ]
 }
