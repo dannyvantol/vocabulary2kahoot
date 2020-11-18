@@ -61,15 +61,13 @@ class VocabularyInput extends React.Component<Props, State>
     |   OnKeyPress event methods
     *----------------------------------------*/
 
-    public onKeyPressTerm(event: React.KeyboardEvent<HTMLInputElement>): void
+    public onKeyDownTerm(event: React.KeyboardEvent<HTMLInputElement>): void
     {
         if (event.key === Keyboard.ENTER) this.answerRef.current?.focus();
     }
 
-    public onKeyPressAnswer(event: React.KeyboardEvent<HTMLInputElement>): void
+    public onKeyDownAnswer(event: React.KeyboardEvent<HTMLInputElement>): void
     {
-        console.log(event.key === Keyboard.TAB);
-        if (event.key === Keyboard.TAB) alert('Hello World');
         if (event.key === Keyboard.ENTER || event.key === Keyboard.TAB) this.onSubmit();
     }
 
@@ -126,7 +124,7 @@ class VocabularyInput extends React.Component<Props, State>
             <div className={"w-full flex items-center border-white border-b-2 pb-1"}>
                 {this.renderInput(
                     this.state.term, 'Term', 120,
-                    this.onInputTerm, this.onKeyPressTerm,
+                    this.onInputTerm, this.onKeyDownTerm,
                     this.termRef
                 )}
 
@@ -134,7 +132,7 @@ class VocabularyInput extends React.Component<Props, State>
 
                 {this.renderInput(
                     this.state.answer, 'Answer', 75,
-                    this.onInputAnswer, this.onKeyPressAnswer,
+                    this.onInputAnswer, this.onKeyDownAnswer,
                     this.answerRef
                 )}
 
