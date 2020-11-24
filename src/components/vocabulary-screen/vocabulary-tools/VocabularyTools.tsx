@@ -3,8 +3,11 @@ import Button from '../../ui/button/Button';
 
 interface Props {
     timeLimit: number;
+    randomOrder: boolean;
 
     onChangeTimeLimit(value: number): void;
+
+    onChangeRandomOrder(value: boolean): void;
 
     onInputQuestionsPerQuiz(value: number): void;
 
@@ -21,6 +24,11 @@ class VocabularyTools extends React.PureComponent<Props> {
     /*----------------------------------------
     |   OnEvent methods
     *----------------------------------------*/
+
+    public onChangeRandomOrder(event: React.FormEvent<HTMLInputElement>): void {
+        const value: boolean = event.currentTarget.checked;
+        this.props.onChangeRandomOrder(value);
+    }
 
     public onChangeSecondsPerQuestion(event: React.FormEvent<HTMLSelectElement>): void {
         const value: number = parseInt(event.currentTarget.value);
@@ -72,6 +80,16 @@ class VocabularyTools extends React.PureComponent<Props> {
                         />
 
                         <span className={"text-white ml-2"}>questions per quiz</span>
+                    </div>
+
+                    <div className={"flex items-center"}>
+                        <input
+                            type={"checkbox"}
+
+                            onChange={this.onChangeRandomOrder.bind(this)}
+                        />
+
+                        <span className={"text-white ml-2"}>Random order</span>
                     </div>
                 </div>
                 <div className={"flex justify-between mt-2"}>
