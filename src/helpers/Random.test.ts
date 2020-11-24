@@ -19,3 +19,30 @@ describe('Test Random number', function () {
         expect(result).toBe(10);
     });
 });
+
+describe('Test Random arrayOrder', function () {
+    it('Should return array with four elements', function () {
+        const array: number[] =  [1, 2, 3, 4];
+
+        const result: number[] = Random.arrayOrder<number>(array);
+
+        expect(result.length).toBe(4);
+    });
+
+    it('Should return new array that does not match the given array', function () {
+        const array: number[] =  [1, 2, 3, 4];
+        let doesNotMatch: boolean = false;
+
+        const result: number[] = Random.arrayOrder<number>(array);
+
+
+        for (let i = 0; i < array.length; i++) {
+            if (result[i] === array[i]) {
+                doesNotMatch = true;
+                break;
+            }
+        }
+
+        expect(doesNotMatch).toBeTruthy();
+    });
+});

@@ -8,10 +8,12 @@ import VocabularyTools from './vocabulary-tools/VocabularyTools';
 import {KahootService} from '../../services/KahootService';
 import {KahootQuiz} from '../../models/KahootQuiz';
 import VocabularyDownloadPopup from "./vocabulary-download-popup/VocabularyDownloadPopup";
+import {Random} from "../../helpers/Random";
 
 interface State {
     data: string[][];
     timeLimit: number;
+    randomOrder: boolean;
     questionPerQuiz: number;
     documentName: string;
     downloadables: XLSX.WorkBook[];
@@ -25,6 +27,7 @@ class VocabularyScreen extends React.Component<{}, State> {
         this.state = {
             data: [],
             timeLimit: 20,
+            randomOrder: false,
             questionPerQuiz: 0,
             documentName: '',
             downloadables: [],
@@ -57,6 +60,10 @@ class VocabularyScreen extends React.Component<{}, State> {
         this.setState({timeLimit: value});
     }
 
+    public onChangeRandomOrderVocabularyTools(value: boolean): void {
+        this.setState({randomOrder: value});
+    }
+
     public onInputQuestionPerQuizVocabularyTools(value: number): void {
         this.setState({questionPerQuiz: value});
     }
@@ -80,9 +87,11 @@ class VocabularyScreen extends React.Component<{}, State> {
     }
 
     public onClickDownloadVocabularyTools(): void {
+        const data: string[][] = this.state.randomOrder ? Random.arrayOrder<string[]>(this.state.data) : this.state.data;
+
         if (this.dataHasFourOrMoreEntries()) {
             const kahootQuizSize = (this.state.questionPerQuiz <= 0) ? this.state.data.length : this.state.questionPerQuiz;
-            const kahootQuizzes: KahootQuiz[] = KahootService.createQuiz(this.state.data, this.state.timeLimit, kahootQuizSize);
+            const kahootQuizzes: KahootQuiz[] = KahootService.createQuiz(data, this.state.timeLimit, kahootQuizSize);
 
             let downloadables: XLSX.WorkBook[] = [];
 
@@ -131,7 +140,9 @@ class VocabularyScreen extends React.Component<{}, State> {
                     <div className={"mt-3"}>
                         <VocabularyTools
                             timeLimit={this.state.timeLimit}
+                            randomOrder={this.state.randomOrder}
                             onChangeTimeLimit={this.onChangeTimeLimitVocabularyTools.bind(this)}
+                            onChangeRandomOrder={this.onChangeRandomOrderVocabularyTools.bind(this)}
                             onInputQuestionsPerQuiz={this.onInputQuestionPerQuizVocabularyTools.bind(this)}
                             onInputDocumentName={this.onInputDocumentNameVocabularyTools.bind(this)}
                             onClickClear={this.onClickClearVocabularyTools.bind(this)}
